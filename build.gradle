@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'io.quarkus' version '2.7.1.Final'
+    id "io.freefair.lombok" version "6.3.0"
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    quarkusversion = '2.7.1.Final'
+}
+
+dependencies {
+    implementation enforcedPlatform("io.quarkus:quarkus-bom:${project.quarkusversion}")
+
+
+    implementation group: 'io.quarkus', name: 'quarkus-resteasy'
+    implementation group: 'io.quarkus', name: 'quarkus-arc'
+    implementation group: 'io.quarkus', name: 'quarkus-smallrye-health'
+
+    implementation 'org.jboss.resteasy:resteasy-jackson2-provider:4.7.4.Final'
+
+    //registro
+    implementation 'com.orbitz.consul:consul-client:1.5.3'
+
+    implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
+
+    implementation 'org.neo4j.driver:neo4j-java-driver:4.4.5'
+
+
+}
+
+application {
+    mainClassName = 'com.programacion.Main'
+}
+
+sourceSets {
+    main {
+        output.resourcesDir = file("${buildDir}/classes/java/main")
+    }
+}
