@@ -1,8 +1,10 @@
 package com.programacion.db;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+@AllArgsConstructor
 public class Customer {
     @Getter
     @Setter
@@ -15,6 +17,7 @@ public class Customer {
     @Getter
     @Setter
     private String surname;
+
 
 
 }

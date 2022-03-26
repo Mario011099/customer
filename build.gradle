@@ -3,6 +3,10 @@ plugins {
     id 'application'
     id 'io.quarkus' version '2.7.1.Final'
     id "io.freefair.lombok" version "6.3.0"
+
+    id "com.netflix.dgs.codegen" version "5.1.17"
+
+
 }
 
 group 'org.example'
@@ -33,7 +37,8 @@ dependencies {
 
     implementation 'org.neo4j.driver:neo4j-java-driver:4.4.5'
 
-
+    implementation(platform("com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:latest.release"))
+    implementation "com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter"
 }
 
 application {
