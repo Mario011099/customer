@@ -23,6 +23,7 @@ public class ServicioCustomerImpl implements ServicioCustomer{
         Session session = driver.session();
         session.writeTransaction(tx -> {
             Result result = tx.run("MATCH (a:Customer) Return a");
+            return result.single().get(0).asString();
         });
         return null;
     }
