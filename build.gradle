@@ -36,18 +36,15 @@ dependencies {
     implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
 
     implementation 'org.neo4j.driver:neo4j-java-driver:4.4.5'
-    implementation 'org.neo4j:neo4j-jdbc:4.0.5'
-
-
-    implementation 'com.zaxxer:HikariCP:5.0.1'
-
-
-    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server:3.1.1'
 
 
     implementation(platform("com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:latest.release"))
     implementation "com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter"
     implementation 'com.graphql-java-kickstart:graphql-java-tools:12.0.2'
+
+    implementation 'com.github.fmcejudo:quarkus-eureka:0.0.14'
+    implementation 'io.quarkus:quarkus-smallrye-graphql:2.7.1.Final'
+
 
 }
 

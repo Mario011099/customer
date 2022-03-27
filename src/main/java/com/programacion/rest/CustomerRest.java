@@ -1,6 +1,7 @@
 package com.programacion.rest;
 
 import com.programacion.db.Customer;
+import com.programacion.graphql.CustomerController;
 import com.programacion.servicios.ServicioCustomer;
 
 
@@ -58,5 +59,8 @@ public class CustomerRest {
         servicio.update(id,c);
         return Response.status((Response.Status.OK) ).build();
     }
+
+
+
 
 }

@@ -29,13 +29,24 @@ public class ServicioCustomerImpl implements ServicioCustomer {
 
         Record record = session.readTransaction(tx -> {
             Result result = tx.run(query);
-            return result.single();
+            if (result.hasNext()){
+                return result.single();
+            }
+            else return null;
 
         });
+
         c=new Customer();
-        c.setId(record.get("id").asInt());
-        c.setName(record.get("name").asString());
-        c.setSurname(record.get("surname").asString());
+        if(record != null){
+            c.setId(record.get("id").asInt());
+            c.setName(record.get("name").asString());
+            c.setSurname(record.get("surname").asString());
+        }else{
+            c.setId(0000);
+            c.setName(null);
+            c.setSurname(null);
+        }
+
         return c;
     }
 
@@ -82,8 +93,14 @@ public class ServicioCustomerImpl implements ServicioCustomer {
     }
 
 
-    public void update(Integer id, Customer obj) {
+    public void update(Integer id, Customer c) {
+        String name = c.getName();
+        String surname = c.getSurname();
+        String query = String.format("MATCH (a:Customer {id: %s}) SET a.name='%s', a.surname='%s'", id, name, surname);
 
+        Session session = driver.session();
+        session.run(query);
+        session.close();
     }
 
 

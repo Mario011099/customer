@@ -4,13 +4,19 @@ import com.google.common.net.HostAndPort;
 import com.orbitz.consul.Consul;
 import com.orbitz.consul.model.agent.ImmutableRegistration;
 import com.orbitz.consul.model.agent.Registration;
+import io.quarkus.eureka.client.EurekaClient;
+import io.quarkus.eureka.client.loadBalancer.LoadBalanced;
+import io.quarkus.eureka.client.loadBalancer.LoadBalancerType;
 import io.quarkus.runtime.ShutdownEvent;
 import io.quarkus.runtime.StartupEvent;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
+
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
+import javax.inject.Inject;
+import javax.ws.rs.core.MediaType;
 import java.net.InetAddress;
 import java.util.Arrays;
 import java.util.List;
@@ -33,9 +39,18 @@ public class AppEvents {
         id = name + "-" + UUID.randomUUID().toString();
     }
 
+//    @Inject
+//    @LoadBalanced(type = LoadBalancerType.ROUND_ROBIN)
+//    public EurekaClient eurekaClient;
     //Equivalente en CDI
     // public void init (@Observes @Initialized(ApplicationScoped.class)Object ev)
-//    public void init(@Observes StartupEvent ev) throws Exception {
+   public void init(@Observes StartupEvent ev) throws Exception {
+
+//       eurekaClient.app("sample")
+//               .path("/actuator/health")
+//               .request(MediaType.APPLICATION_JSON_TYPE)
+//               .get()
+//               .readEntity(String.class);
 //        String ip = InetAddress.getLocalHost().getHostAddress();
 //
 //        System.out.println("**********************IP    :"+ip);
@@ -79,5 +94,5 @@ public class AppEvents {
 //        consulClient.agentClient().deregister(id);
 //
 //
-//    }
+    }
 }
