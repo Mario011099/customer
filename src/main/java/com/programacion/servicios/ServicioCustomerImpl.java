@@ -9,13 +9,9 @@ import org.neo4j.driver.Session;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @ApplicationScoped
 public class ServicioCustomerImpl implements ServicioCustomer {
@@ -77,7 +73,12 @@ public class ServicioCustomerImpl implements ServicioCustomer {
 
 
     public void delete(Integer id) {
+        String query = String.format("MATCH (a:Customer{id:%s})\n " +
+                "DETACH DELETE a\n",id);
 
+        Session session = driver.session();
+        session.run(query);
+        session.close();
     }
 
 
@@ -87,6 +88,15 @@ public class ServicioCustomerImpl implements ServicioCustomer {
 
 
     public void create(Customer c) {
+        Integer id = c.getId();
+        String name = c.getName();
+        String surname = c.getSurname();
+        String query = String.format("CREATE (n:Customer {id: %s, name: '%s', surname: '%s'})", id, name, surname);
+
+        Session session = driver.session();
+        session.run(query);
+        session.close();
+
 
     }
 }

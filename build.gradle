@@ -42,6 +42,8 @@ dependencies {
     implementation 'com.zaxxer:HikariCP:5.0.1'
 
 
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server:3.1.1'
+
 
     implementation(platform("com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:latest.release"))
     implementation "com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter"
