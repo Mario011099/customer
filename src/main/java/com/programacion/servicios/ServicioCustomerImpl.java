@@ -18,52 +18,60 @@ import java.util.List;
 import java.util.Map;
 
 @ApplicationScoped
-public class ServicioCustomerImpl implements ServicioCustomer{
+public class ServicioCustomerImpl implements ServicioCustomer {
 
     @Inject
-    private DataSource dataSource;
+    private Driver driver;
 
 
     public Customer findById(Integer id) {
-        return null;
+        Customer c;
+        String query = String.format("MATCH (a:Customer{id:%s})\n " +
+                "RETURN a.id as id, a.name as name, a.surname as surname\n",id);
+
+        Session session = driver.session();
+
+        Record record = session.readTransaction(tx -> {
+            Result result = tx.run(query);
+            return result.single();
+
+        });
+        c=new Customer();
+        c.setId(record.get("id").asInt());
+        c.setName(record.get("name").asString());
+        c.setSurname(record.get("surname").asString());
+        return c;
     }
 
 
     public List<Customer> findAll() {
 
         List<Customer> ret = new ArrayList<>();
-        Connection con = null;
         Customer c;
+        String query = "MATCH (a:Customer)\n " +
+                "RETURN a.id as id, a.name as name, a.surname as surname\n";
 
-        try{
-            con = dataSource.getConnection();
-            PreparedStatement pstmt = con.prepareStatement("MATCH (n:Customer) RETURN n");
-            ResultSet rs = pstmt.executeQuery();
+        Session session = driver.session();
 
-            while (rs.next()){
-                c = new Customer();
-                c.setId(rs.getInt("n.id"));
-                c.setName(rs.getString("n.name"));
-                c.setSurname(rs.getString("n.surname"));
+        List<Record> records = session.readTransaction(tx -> {
+            Result result = tx.run(query);
+            return result.list();
 
-                ret.add(c);
-            }
 
-        } catch (Exception ex){
-            ex.printStackTrace();
-        }finally {
-            try{
-                con.close();
-            }catch (Exception ex){
-                ex.printStackTrace();
-            }
+        });
+
+
+        for (Record r : records) {
+            c = new Customer();
+            c.setId(r.get("id").asInt());
+            c.setName(r.get("name").asString());
+            c.setSurname(r.get("surname").asString());
+
+            ret.add(c);
         }
-//        Session session = driver.session();
-//        Result result = session.beginTransaction().run("MATCH (a:Customer) Return a");
-//        for (Record r:result.list()) {
-//            r.get(0);
-//        }
-//
+
+        session.close();
+
         return ret;
     }
 
