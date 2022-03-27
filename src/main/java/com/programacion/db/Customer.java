@@ -19,5 +19,7 @@ public class Customer {
     private String surname;
 
 
+    public Customer() {
 
+    }
 }

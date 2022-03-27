@@ -7,9 +7,6 @@ import org.neo4j.driver.*;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 @ApplicationScoped
@@ -31,12 +28,8 @@ public class DatabaseConfig implements  AutoCloseable{
         String user = "neo4j";
         String password="1lSGpxBwhkopaVVzsdysmepZAm7SYIh7kPwpF-yS7Rs";
 
-        Connection con = DriverManager.getConnection("jdbc:neo4j:bolt:"+uri,user,password);
+        driver = GraphDatabase.driver( uri, AuthTokens.basic( user, password ), org.neo4j.driver.Config.defaultConfig());
 
-
-        //driver = GraphDatabase.driver( uri, AuthTokens.basic( user, password ) );
-
-        //return driver;
-        return null;
+        return driver;
     }
 }

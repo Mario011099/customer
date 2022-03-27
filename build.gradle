@@ -39,6 +39,10 @@ dependencies {
     implementation 'org.neo4j:neo4j-jdbc:4.0.5'
 
 
+    implementation 'com.zaxxer:HikariCP:5.0.1'
+
+
+
     implementation(platform("com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:latest.release"))
     implementation "com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter"
     implementation 'com.graphql-java-kickstart:graphql-java-tools:12.0.2'
