@@ -21,12 +21,16 @@ public class DatabaseConfig implements  AutoCloseable{
         driver.close();
     }
 
+
+
     @Produces
     @ApplicationScoped
-    public Driver driver() throws SQLException {
-        String uri ="neo4j+s://c27ec571.databases.neo4j.io:7687";
-        String user = "neo4j";
-        String password="1lSGpxBwhkopaVVzsdysmepZAm7SYIh7kPwpF-yS7Rs";
+    public Driver driver()  {
+        String uri = config.getValue("uri",String.class);
+
+        String user = config.getValue("user",String.class);
+
+        String password= config.getValue("password", String.class);
 
         driver = GraphDatabase.driver( uri, AuthTokens.basic( user, password ), org.neo4j.driver.Config.defaultConfig());
 
