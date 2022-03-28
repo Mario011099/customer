@@ -46,12 +46,7 @@ public class AppEvents {
     // public void init (@Observes @Initialized(ApplicationScoped.class)Object ev)
    public void init(@Observes StartupEvent ev) throws Exception {
 
-//       eurekaClient.app("sample")
-//               .path("/actuator/health")
-//               .request(MediaType.APPLICATION_JSON_TYPE)
-//               .get()
-//               .readEntity(String.class);
-//        String ip = InetAddress.getLocalHost().getHostAddress();
+        String ip = InetAddress.getLocalHost().getHostAddress();
 //
 //        System.out.println("**********************IP    :"+ip);
 //        System.out.println("**********************PUERTO:"+port);

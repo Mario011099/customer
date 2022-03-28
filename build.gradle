@@ -45,7 +45,7 @@ dependencies {
     implementation 'com.github.fmcejudo:quarkus-eureka:0.0.14'
     implementation 'io.quarkus:quarkus-smallrye-graphql:2.7.1.Final'
 
-
+    implementation("io.quarkus:quarkus-spring-cloud-config-client")
 }
 
 application {
